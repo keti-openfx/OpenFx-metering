@@ -1,11 +1,11 @@
 from concurrent import futures
 import time,datetime
 
-import grpc
+import grpc,os
 
 import helloworld_pb2
 import helloworld_pb2_grpc
-import os,psutil
+
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
@@ -38,13 +38,8 @@ class Greeter(helloworld_pb2_grpc.GreeterServicer):
           # print msg,
           rl.append(msg)
       pid = os.getpid()
-      p = psutil.Process(pid)
-      # print(pid)
-      for map in p.memory_maps(grouped=False):
-          if '[heap]' in map.path:
-              rl.append('1')
-              break
-      return ' '.join(rl)
+
+      return '1'
 
 
 
