@@ -26,7 +26,7 @@ class Greeter(helloworld_pb2_grpc.GreeterServicer):
           except MemoryError:
               print("[%s] error" % i)
               return False
-
+      del bd
       return True
 
 
