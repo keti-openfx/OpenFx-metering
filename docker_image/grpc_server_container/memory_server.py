@@ -10,7 +10,7 @@ import helloworld_pb2_grpc
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
 
-class Greeter(helloworld_pb2_grpc.GreeterServicer):
+class memory(helloworld_pb2_grpc.GreeterServicer):
 
   def memory_usage(self,value):
       sts = datetime.datetime.now()
@@ -38,21 +38,18 @@ class Greeter(helloworld_pb2_grpc.GreeterServicer):
           # print msg,
           rl.append(msg)
       pid = os.getpid()
-
       return '1'
-
 
 
   def SayHello(self, request, context):
     self.memory_usage(int(request.name))
-    return helloworld_pb2.HelloReply(message='Usage Memory, %s0 MB!' % request.name)
-
+    return helloworld_pb2.HelloReply(message='Usage Memory, %s MB!' % request.name)
 
 
 
 def serve():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-  helloworld_pb2_grpc.add_GreeterServicer_to_server(Greeter(), server)
+  helloworld_pb2_grpc.add_GreeterServicer_to_server(memory(), server)
   server.add_insecure_port('[::]:50051')
   server.start()
   try:
