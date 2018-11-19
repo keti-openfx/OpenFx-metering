@@ -32,6 +32,7 @@ def thread_metering():
 if __name__ == '__main__':
   cli = docker.Client(base_url='unix://var/run/docker.sock')
   container = cli.inspect_container('my-running-server')
+  cli.get_image
   container_id=container['Id']
   metering_thread = threading.Thread(target=thread_metering, args=())
   metering_thread.start()
