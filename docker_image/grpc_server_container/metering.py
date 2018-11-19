@@ -9,7 +9,7 @@ class Metering:
         pass
 
     def memory_metering_run(self,container_id):
-        conn = pymysql.connect(host='localhost', user='root', password='root', db='metering', charset='utf8')
+        conn = pymysql.connect(host='localhost', user='root', password='****', db='metering', charset='utf8')
         curs = conn.cursor()
         dt = datetime.datetime.now()
         print(dt)
