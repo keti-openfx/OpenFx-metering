@@ -28,23 +28,19 @@ def get_memory():
     data=cli.containers()
     for container in data:
 
-        container_id=(container['Id'])
-        Names = str(container['Names'])
-
-        Names=Names.replace("'","")
-
+        container_id=str((container['Id']))
+        Names = str(container['Names']).replace("'","")
         Names = Names.replace("]", "")
         Names=Names[2:]
 
         with open('/sys/fs/cgroup/memory/docker/' + str(container_id) + '/memory.usage_in_bytes', "r") as f:
             mem_size = int(f.read().replace('\n', ''))
-            collector=collector+'memory_metering_'+str(Names)+'\t'+str(mem_size)+"\n"
-    print(collector[:-1])
+            collector=collector+'memory_metering_'+str(container_id[:5])+'_'+str(Names)+'\t'+str(mem_size)+"\n"
+
     return collector[:-1]
 @app.route('/metrics',methods=['GET'])
 def metrics():
     return get_memory()
-
 
 
 if __name__ == '__main__':
