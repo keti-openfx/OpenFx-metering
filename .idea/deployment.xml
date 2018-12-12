@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" uploadOnCheckin="929bf5c6-c6cf-4a9f-af75-7d3ad0c2aca1">
+  <component name="PublishConfigData" autoUpload="Always" uploadOnCheckin="929bf5c6-c6cf-4a9f-af75-7d3ad0c2aca1">
     <serverData>
-      <paths name="remote">
+      <paths name="OpenFX">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/OpenFX-metering" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
     </serverData>
-    <option name="myUploadOnCheckinName" value="remote" />
+    <option name="myUploadOnCheckinName" value="OpenFX" />
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
