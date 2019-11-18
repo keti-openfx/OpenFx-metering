@@ -1,18 +1,18 @@
 # OpenFx-metering (Memory) 1.0.0-a1
-## 1.  미터링용 커널 모듈 컴파일 하기
-### 1.1 Make
+## 1.  미터링용 커널 모듈 
+### 1.1 Make (커널 모듈 컴파일)
 ```
 make
 ```
 
-### 1.2 Load Kernel Module
+### 1.2 Load Kernel Module (커널 모듈 적재)
 ```
 insmod monitor.ko pid=[] container_name=[] pid_count=len(pid)
 ```
 -----------------------
 
 ## 2.  커널 모듈 제어 
-### 2.1 Excute Manager
+### 2.1 Excute Manager (커널 모듈 제어 스크립트 실행)
 ```
 python3.* kernel_manager.py 
 ```
