@@ -11,6 +11,8 @@ insmod monitor.ko pid=[] container_name=[] pid_count=len(pid)
 ```
 -----------------------
 
-
-## 2.  커널 모듈 관리 SW 
+## 2.  커널 모듈 제어 
+```
+python3.* kernel_manager.py 
+```
 -----------------------
