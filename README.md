@@ -7,7 +7,7 @@ make
 
 ### 1.2 Load Kernel Module
 ```
-insmod monitor.ko
+insmod monitor.ko pid=[] container_name=[] pid_count=len(pid)
 ```
 -----------------------
 
