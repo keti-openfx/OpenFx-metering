@@ -29,7 +29,24 @@ scrape_configs:
   - job_name: 'pushgateway'
     honor_labels: true
     static_configs:
-      - targets: ['prometheus_server_ip:9091']
+      - targets: ['prometheus_gw_server_ip:9091']
 
 ```
+### 3.2 프로메테우스 구동
+```
+docker run -td -p 9090:9090 --name promethus_syscore -v prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+```
 -----------------------
+
+### 3.3 프로메테우스 게이트웨이 구동
+```
+docker run -td -p 9091:9091 --name promethus_syscore_gw koreasecurity/openfx:prometheus_gw
+```
+-----------------------
+
+### 3.4 Grafana 구동
+```
+docker run -td -p 3000:3000 --name grafana grafana/grafana
+```
+-----------------------
+
