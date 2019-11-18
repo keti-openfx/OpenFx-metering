@@ -1,8 +1,13 @@
 # OpenFx-metering (Memory) 0.1v
-## 1.  커널 모듈 컴파일 하기
+## 1.  미터링용 커널 모듈 컴파일 하기
 ### 1.1 Make
 ```
 make
+```
+
+### 1.2 Load Kernel Module
+```
+insmod monitor.ko
 ```
 -----------------------
 
