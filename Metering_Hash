@@ -1,0 +1,112 @@
+import hashlib
+import time
+import json
+import random
+
+
+class Block():
+    def __init__(self, index, timestamp,metric):
+        self.index = index
+        self.timestamp = timestamp
+        self.data = metric
+        self.previousHash = 0
+        self.nonce = 0
+        self.hash = self.calHash()
+
+    def calHash(self):
+        hash_list=[]
+        hash_list.append(str(self.index).encode())
+        hash_list.append(str(self.data).encode())
+        hash_list.append(str(self.nonce).encode())
+        hash_list.append(str(self.timestamp).encode())
+        hash_list.append(str(self.previousHash).encode())
+        hash_data=self.shuffle(hash_list)
+        return hashlib.sha256(hash_data).hexdigest()
+
+    def mtering_mining(self, level):
+        check = ["1"]*level
+        check_value = "".join(check)
+        while(str(self.hash)[:level] != check_value):
+            self.nonce += 1
+            self.hash = self.calHash()
+        return self.hash
+
+
+    def shuffle(self,hash_list):
+        random.seed(self.timestamp)
+
+        random.randint(1, 100000)
+        random.shuffle(hash_list)
+        return (b''.join(hash_list))
+
+
+
+class Metring_Chain:
+    def __init__(self, ):
+        self.metring_chain = []
+        self.level = 1
+
+    def init_metring(self):
+        self.metring_chain.append(Block(0, time.time(),'init_metric'))
+
+    def load_metring(self,last_index,last_timestamp,lastdata):
+
+        self.metring_chain.append(Block(last_index,last_timestamp,lastdata))
+
+    def add_Metric(self, metring_Block):
+        metring_Block.previousHash = self.metring_chain[len(self.metring_chain)-1].hash
+        metring_Block.hash = metring_Block.mtering_mining(self.level)
+        self.metring_chain.append(metring_Block)
+
+    def isCehck(self):
+        step = 1
+        while(step<len(self.metring_chain)):
+            if(self.metring_chain[step].hash != self.metring_chain[step].calHash()):
+                return False
+            if(self.metring_chain[step].previousHash != self.metring_chain[step-1].hash):
+                return False
+            step += 1
+        return True
+
+
+onion = Metring_Chain() #HASH INIT
+
+try:
+    with open('metric_hash.json') as json_file:
+        json_data = json.loads(json_file.read())
+
+    print(json_data)
+    #last_hash = json.load(str(json_data[len(json_data) - 1]))
+    print(json_data[2])
+    #print(type(last_hash))
+    #last_hash=last_hash.loads(last_hash)
+    #print(last_hash)
+    last_hash=json_data[-1]
+    #print(json_data[-1]['index'])
+    last_index = int(last_hash['index'])
+    last_timestamp = float(last_hash['timestamp'])
+    last_data = (last_hash['data'])
+
+    onion.load_metring(last_index, last_timestamp, last_data)
+
+except Exception as e:
+    print(e)
+    print("[INIT]")
+    onion.init_metring()#생성된 해쉬 파일이 없을때
+
+
+onion.add_Metric(Block(len(onion.metring_chain),time.time(), "12nd"))
+block_list=[]
+for block in onion.metring_chain:
+    block_list.append((vars(block)))
+
+try:
+    json_data.append(json.dumps((block_list[-1])))
+    with open('metric_hash.json', 'w', encoding='utf-8') as make_file:
+        json.dump(json_data, make_file)
+
+except Exception as e:
+    print(e)
+    with open('metric_hash.json', 'w', encoding='utf-8') as make_file:
+        json.dump(block_list, make_file)
+    pass
